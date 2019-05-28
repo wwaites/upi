@@ -5,12 +5,12 @@ Scheduler for uniprocessor jobs on an MPI cluster
     
     optional arguments:
       -h, --help            show this help message and exit
-      -c CWD, --cwd CWD     Scratch directory
+      -c CWD, --cwd CWD     Job working directory
       -o OUTPUT, --output OUTPUT
                             Job output directory
       -s SCRATCH, --scratch SCRATCH
-                            Scratch directory
-      -w WORK, --work WORK  Working directory
+                            Scratch data directory
+      -w WORK, --work WORK  Working data directory
       -q QUEUE, --queue QUEUE
                             Queue directory
     

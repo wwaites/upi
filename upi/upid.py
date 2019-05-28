@@ -146,10 +146,10 @@ directories are by examining the SCRATCH and WORK environment variables.
 
     parser = argparse.ArgumentParser(argv[0], description="Scheduler for uniprocessor jobs on an MPI cluster",
                                      epilog=main.__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("-c", "--cwd", type=str, default=os.getcwd(), help="Scratch directory")
+    parser.add_argument("-c", "--cwd", type=str, default=os.getcwd(), help="Job working directory")
     parser.add_argument("-o", "--output", type=str, required=True, help="Job output directory")
-    parser.add_argument("-s", "--scratch", type=str, required=True, help="Scratch directory")
-    parser.add_argument("-w", "--work", type=str, required=True, help="Working directory")
+    parser.add_argument("-s", "--scratch", type=str, required=True, help="Scratch data directory")
+    parser.add_argument("-w", "--work", type=str, required=True, help="Working data directory")
     parser.add_argument("-q", "--queue", type=str, required=True, help="Queue directory")
     args = parser.parse_args()
 
