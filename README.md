@@ -28,3 +28,5 @@ Scheduler for uniprocessor jobs on an MPI cluster
     of the job. Persistent data should be (perhaps atomically) written
     or moved into the working directory. The job can find out what these
     directories are by examining the SCRATCH and WORK environment variables.
+
+Requires mpi4py version 3 or greater.
