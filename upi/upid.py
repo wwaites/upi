@@ -146,13 +146,15 @@ of the job. Persistent data should be (perhaps atomically) written
 or moved into the working directory. The job can find out what these
 directories are by examining the SCRATCH and WORK environment variables.
 
+Example:
+
     ## copy the example jobs to a queue directory
     mkdir queuedir; cp example_queue/* queuedir
 
     ## run 12 concurrent jobs, taking jobs from queuedir
     ## write job output and data to the current directory
     mpirun -n 12 python3 -m mpi4py.futures upi/upid.py \\
-        -o . -s /tmp -w . -q queuedir
+        -o . -w . -s /tmp -q queuedir
 
 This program needs to be run under the `mpi4py.futures` module.
 """

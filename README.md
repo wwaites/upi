@@ -37,6 +37,6 @@ Scheduler for uniprocessor jobs on an MPI cluster
         ## run 12 concurrent jobs, taking jobs from queuedir
         ## write job output and data to the current directory
         mpirun -n 12 python3 -m mpi4py.futures upi/upid.py \
-            -o . -s /tmp -w . -q queuedir
+            -o . -w . -s /tmp -q queuedir
 
 Requires mpi4py version 3 or greater.
