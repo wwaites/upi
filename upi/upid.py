@@ -167,7 +167,7 @@ directories are by examining the SCRATCH and WORK environment variables.
     with MPIPoolExecutor() as executor:
         while True:
              jobs = list(filter(finish, jobs))
-             if len(jobs) >= mpi4py.MPI.COMM_WORLD.size:
+             if len(jobs) >= mpi4py.MPI.COMM_WORLD.size - 1:
                  time.sleep(0.1)
                  continue
              if queue.empty():
