@@ -10,6 +10,7 @@ import json
 from threading import Thread
 from queue import Queue
 import logging
+import socket
 from sys import argv
 
 SHELL = "/bin/bash"
@@ -23,6 +24,7 @@ def wraprun(cmd, args, job):
         status = runproc(cmd, args, job)
     except Exception as e:
         status = {
+            "host": socket.gethostname(),
             "process": mpi4py.MPI.COMM_WORLD.rank,
             "job": job,
             "command": cmd,
@@ -67,14 +69,15 @@ def runproc(cmd, args, job):
         fp.write(err)
 
     status = {
+        "host": socket.gethostname(),
         "process": mpi4py.MPI.COMM_WORLD.rank,
         "job": job,
         "command": cmd,
         "start": str(start),
         "end": str(end),
         "elapsed": str(end-start),
-        "out": outf,
-        "err": errf,
+        "stdout": outf,
+        "stderr": errf,
         "status": proc.returncode
     }
 
@@ -142,6 +145,16 @@ ended prematurely. The lifetime of the scratch directory is the lifetime
 of the job. Persistent data should be (perhaps atomically) written
 or moved into the working directory. The job can find out what these
 directories are by examining the SCRATCH and WORK environment variables.
+
+    ## copy the example jobs to a queue directory
+    mkdir queuedir; cp example_queue/* queuedir
+
+    ## run 12 concurrent jobs, taking jobs from queuedir
+    ## write job output and data to the current directory
+    mpirun -n 12 python3 -m mpi4py.futures upi/upid.py \\
+        -o . -s /tmp -w . -q queuedir
+
+This program needs to be run under the `mpi4py.futures` module.
 """
 
     parser = argparse.ArgumentParser(argv[0], description="Scheduler for uniprocessor jobs on an MPI cluster",

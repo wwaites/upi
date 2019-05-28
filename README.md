@@ -29,4 +29,14 @@ Scheduler for uniprocessor jobs on an MPI cluster
     or moved into the working directory. The job can find out what these
     directories are by examining the SCRATCH and WORK environment variables.
 
+    Example:
+
+        ## copy the example jobs to a queue directory
+        mkdir queuedir; cp example_queue/* queuedir
+
+        ## run 12 concurrent jobs, taking jobs from queuedir
+        ## write job output and data to the current directory
+        mpirun -n 12 python3 -m mpi4py.futures upi/upid.py \
+            -o . -s /tmp -w . -q queuedir
+
 Requires mpi4py version 3 or greater.
