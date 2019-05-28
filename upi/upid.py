@@ -156,7 +156,7 @@ directories are by examining the SCRATCH and WORK environment variables.
     FORMAT = '%(asctime)-15s %(name)s %(message)s'
     logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 
-    queue = Queue(maxsize=mpi4py.MPI.COMM_WORLD.size)
+    queue = Queue(maxsize=1)
     qrunner = Thread(target=dequeue, args=(args, queue))
     qrunner.start()
     jobs = []
