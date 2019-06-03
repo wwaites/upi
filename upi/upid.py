@@ -109,6 +109,8 @@ def dequeue(args, queue):
 
                 queue.put((os.path.join(args.output, cmdbase), args, job))
                 job += 1
+        if args.oneshot:
+            break
         time.sleep(1)
 
 def finish(av):
@@ -166,6 +168,7 @@ This program needs to be run under the `mpi4py.futures` module.
     parser.add_argument("-s", "--scratch", type=str, required=True, help="Scratch data directory")
     parser.add_argument("-w", "--work", type=str, required=True, help="Working data directory")
     parser.add_argument("-q", "--queue", type=str, required=True, help="Queue directory")
+    parser.add_argument("-1", "--oneshot", default=False, action="store_true", help="One-shot -- process the queue directory and exit")
     args = parser.parse_args()
 
     FORMAT = '%(asctime)-15s %(name)s %(message)s'
@@ -186,6 +189,9 @@ This program needs to be run under the `mpi4py.futures` module.
                  time.sleep(0.1)
                  continue
              if queue.empty():
+                 if not qrunner.is_alive():
+                     log.info("finished processing")
+                     break
                  time.sleep(0.1)
                  continue
 
